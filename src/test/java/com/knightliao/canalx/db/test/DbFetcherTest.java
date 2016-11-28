@@ -3,6 +3,7 @@ package com.knightliao.canalx.db.test;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.knightliao.canalx.db.DbFetcher;
@@ -16,6 +17,7 @@ import junit.framework.Assert;
  */
 public class DbFetcherTest {
 
+    @Ignore
     @Test
     public void test() {
 
