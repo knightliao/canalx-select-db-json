@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.knightliao.canalx</groupId>
     <artifactId>canalx-select-db-json</artifactId>
-    <name>canalx-starter</name>
+    <name>canalx-select-db-json</name>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
