@@ -22,9 +22,7 @@ public class ConfigParser {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ConfigParser.class);
 
-    private DbConfiguration genConfiguration = new DbConfiguration();
-
-    public DbConfiguration parse(InputStream xmlPath) throws Exception {
+    public Map<String, TableConfig> parse(InputStream xmlPath) throws Exception {
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true);
@@ -46,6 +44,7 @@ public class ConfigParser {
         NodeList children = rootEl.getChildNodes();
 
         BaseConfig currentBaseConfig = null;
+        Map<String, TableConfig> allTableConfigMap = new HashMap<String, TableConfig>();
         for (int i = 0; i < children.getLength(); i++) {
             Node node = children.item(i);
             if (node instanceof Element) {
@@ -57,14 +56,13 @@ public class ConfigParser {
 
                 } else if (elementNameMatch(element, "dbs")) {
 
-                    Map<String, TableConfig> allTableConfigMap = parseDbs(element, currentBaseConfig);
-                    genConfiguration.setAllTableInfo(allTableConfigMap);
+                    allTableConfigMap = parseDbs(element, currentBaseConfig);
                 }
 
             }
         }
 
-        return genConfiguration;
+        return allTableConfigMap;
     }
 
     /**
@@ -169,6 +167,7 @@ public class ConfigParser {
         // self config
         tableConfig.setInitSql(el.getAttribute("initSql"));
         tableConfig.setTableName(el.getAttribute("name"));
+        tableConfig.setKeyId(el.getAttribute("keyId"));
 
         // parent base config
         if (!currentDbConfig.getDbName().isEmpty()) {
@@ -177,18 +176,21 @@ public class ConfigParser {
             tableConfig.setDbName(parentDbConfig.getDbName());
         }
 
+        // db url
         if (!currentDbConfig.getDbUrl().isEmpty()) {
             tableConfig.setDbUrl(currentDbConfig.getDbUrl());
         } else {
             tableConfig.setDbUrl(parentDbConfig.getDbUrl());
         }
 
+        // user name
         if (!currentDbConfig.getUserName().isEmpty()) {
             tableConfig.setUserName(currentDbConfig.getUserName());
         } else {
             tableConfig.setUserName(parentDbConfig.getUserName());
         }
 
+        // password
         if (!currentDbConfig.getPassword().isEmpty()) {
             tableConfig.setPassword(currentDbConfig.getPassword());
         } else {

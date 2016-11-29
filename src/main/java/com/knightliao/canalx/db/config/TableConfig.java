@@ -21,6 +21,8 @@ public class TableConfig {
 
     String identify;
 
+    String keyId;
+
     public void genIdentify() {
         this.identify = this.dbName + "." + this.tableName;
     }

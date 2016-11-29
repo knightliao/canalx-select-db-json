@@ -1,36 +1,57 @@
 
 ## canalx-select-db
 
-Fetch db-data to JSON style 
+Fetch MYSQL's data to K-V style data.
 
 ## quick start 
+
+### config 
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <configuration>
+        <base>
+            <driverClass>com.mysql.jdbc.Driver</driverClass>
+        </base>
+    
+        <dbs dbUrl="jdbc:mysql://localhost:3306?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"
+             name="test"
+             userName="root" password="123456">
+            <db>
+                <table keyId="id" name="user" initSql="select * from test.user"/>
+            </db>
+    
+            <db name="test2"
+                dbUrl="jdbc:mysql://localhost:3306?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"
+                userName="root" password="123456">
+                <table keyId="id" name="store" initSql="select * from test2.store"/>
+            </db>
+        </dbs>
+    
+    </configuration>
+
+### code: 
 
     @Test
     public void test() {
 
-        String driverClass = "com.mysql.jdbc.Driver";
-        String dbUrl = "jdbc:mysql://localhost:3306?"
-                + "useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries"
-                + "=true";
-        String userName = "root";
-        String password = "123456";
+        IDbFetchController dbFetchController = DbFetchControllerFactory.getDefaultDbController();
 
-        try {
+        Map<String, Map<String, String>> dbKvs = dbFetchController.getInitDbKv();
 
-            DbFetcher dbFetcher = DbFetcherFactory.getDefaultDbFetcher(driverClass, dbUrl, userName, password);
+        for (String tableId : dbKvs.keySet()) {
 
-            List<Map<String, Object>> results = dbFetcher.executeSql("select * from 100weidu.user");
-            for (Map<String, Object> map : results) {
-                System.out.println(map.toString());
-            }
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-            Assert.assertTrue(false);
+            System.out.println("table identify: " + tableId);
+            System.out.println("table kv:" + dbKvs.get(tableId));
         }
     }
+    
+### result 
+    
+    table identify: test2.store
+    table kv:{1={"id":1,"name":"product1","products":100}}
+    table identify: test.user
+    table kv:{1={"id":1,"name":"user1","phone":"123456789"}}
     
 ## 推荐
 

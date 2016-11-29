@@ -6,17 +6,16 @@
     </base>
 
     <dbs dbUrl="jdbc:mysql://localhost:3306?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"
-         name="100weidu"
+         name="test"
          userName="root" password="123456">
         <db>
-            <table name="user" initSql="select * from 100weidu.user"/>
-            <table name="topic" initSql="select * from 100weidu.topic"/>
+            <table keyId="id" name="user" initSql="select * from test.user"/>
         </db>
 
-        <db name="disconf"
+        <db name="test2"
             dbUrl="jdbc:mysql://localhost:3306?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"
             userName="root" password="123456">
-            <table name="user" initSql="select * from disconf.user"/>
+            <table keyId="id" name="store" initSql="select * from test2.store"/>
         </db>
     </dbs>
 

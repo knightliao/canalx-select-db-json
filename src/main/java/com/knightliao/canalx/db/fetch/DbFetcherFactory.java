@@ -9,8 +9,7 @@ import com.knightliao.canalx.db.fetch.impl.DbFetcherImpl;
 public class DbFetcherFactory {
 
     public static DbFetcher getDefaultDbFetcher(String driverClass, String dbUrl, String userName, String userPassword)
-            throws
-            ClassNotFoundException {
+            throws ClassNotFoundException {
 
         DbFetcher dbFetcher = new DbFetcherImpl();
 
