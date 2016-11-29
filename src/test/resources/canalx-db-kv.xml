@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <base>
+        <driverClass>com.mysql.jdbc.Driver</driverClass>
+    </base>
+
+    <dbs dbUrl="jdbc:mysql://localhost:3306?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"
+         name="100weidu"
+         userName="root" password="123456">
+        <db>
+            <table name="user" initSql="select * from 100weidu.user"/>
+            <table name="topic" initSql="select * from 100weidu.topic"/>
+        </db>
+
+        <db name="disconf"
+            dbUrl="jdbc:mysql://localhost:3306?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true"
+            userName="root" password="123456">
+            <table name="user" initSql="select * from disconf.user"/>
+        </db>
+    </dbs>
+
+</configuration>
