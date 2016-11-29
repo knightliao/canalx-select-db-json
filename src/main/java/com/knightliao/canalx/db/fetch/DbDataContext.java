@@ -1,4 +1,4 @@
-package com.knightliao.canalx.db;
+package com.knightliao.canalx.db.fetch;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,6 @@
-package com.knightliao.canalx.db;
+package com.knightliao.canalx.db.fetch;
 
-import com.knightliao.canalx.db.impl.DbFetcherImpl;
+import com.knightliao.canalx.db.fetch.impl.DbFetcherImpl;
 
 /**
  * @author knightliao

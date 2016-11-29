@@ -1,4 +1,4 @@
-package com.knightliao.canalx.db;
+package com.knightliao.canalx.db.fetch;
 
 import java.sql.SQLException;
 import java.util.List;

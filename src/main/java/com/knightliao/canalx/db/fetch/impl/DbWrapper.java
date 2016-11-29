@@ -1,4 +1,4 @@
-package com.knightliao.canalx.db.impl;
+package com.knightliao.canalx.db.fetch.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

@@ -1,4 +1,4 @@
-package com.knightliao.canalx.db.test;
+package com.knightliao.canalx.db.test.fetch;
 
 import java.util.List;
 import java.util.Map;
@@ -7,8 +7,8 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.knightliao.canalx.db.DbFetcher;
-import com.knightliao.canalx.db.DbFetcherFactory;
+import com.knightliao.canalx.db.fetch.DbFetcher;
+import com.knightliao.canalx.db.fetch.DbFetcherFactory;
 
 /**
  * @author knightliao

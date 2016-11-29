@@ -1,4 +1,4 @@
-package com.knightliao.canalx.db.impl;
+package com.knightliao.canalx.db.fetch.impl;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -11,9 +11,9 @@ import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.knightliao.canalx.db.DbDataContext;
-import com.knightliao.canalx.db.DbDataContextAware;
-import com.knightliao.canalx.db.DbFetcher;
+import com.knightliao.canalx.db.fetch.DbDataContext;
+import com.knightliao.canalx.db.fetch.DbDataContextAware;
+import com.knightliao.canalx.db.fetch.DbFetcher;
 
 /**
  * @author knightliao

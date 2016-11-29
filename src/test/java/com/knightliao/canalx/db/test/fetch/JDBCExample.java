@@ -1,4 +1,4 @@
-package com.knightliao.canalx.db.test;
+package com.knightliao.canalx.db.test.fetch;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
