@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class TableConfig {
 
+    String driverClass;
+
     String dbName;
 
     String dbUrl;

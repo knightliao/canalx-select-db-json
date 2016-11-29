@@ -44,6 +44,8 @@ public class ConfigParser {
         Element rootEl = document.getDocumentElement();
 
         NodeList children = rootEl.getChildNodes();
+
+        BaseConfig currentBaseConfig = null;
         for (int i = 0; i < children.getLength(); i++) {
             Node node = children.item(i);
             if (node instanceof Element) {
@@ -51,12 +53,11 @@ public class ConfigParser {
 
                 if (elementNameMatch(element, "base")) {
 
-                    BaseConfig baseConfig = parseBase(element);
-                    genConfiguration.setJdbcDriver(baseConfig.getDriverClass());
+                    currentBaseConfig = parseBase(element);
 
                 } else if (elementNameMatch(element, "dbs")) {
 
-                    Map<String, TableConfig> allTableConfigMap = parseDbs(element);
+                    Map<String, TableConfig> allTableConfigMap = parseDbs(element, currentBaseConfig);
                     genConfiguration.setAllTableInfo(allTableConfigMap);
                 }
 
@@ -90,13 +91,16 @@ public class ConfigParser {
      *
      * @return
      */
-    private DbConfig getDbConfig(Element el) {
+    private DbConfig getDbConfig(Element el, BaseConfig baseConfig) {
 
         DbConfig dbConfig = new DbConfig();
         dbConfig.setDbName(el.getAttribute("name"));
         dbConfig.setDbUrl(el.getAttribute("dbUrl"));
         dbConfig.setUserName(el.getAttribute("userName"));
         dbConfig.setPassword(el.getAttribute("password"));
+        if (baseConfig != null) {
+            dbConfig.setDriverClass(baseConfig.getDriverClass());
+        }
 
         return dbConfig;
     }
@@ -104,10 +108,10 @@ public class ConfigParser {
     /**
      * @param el
      */
-    private Map<String, TableConfig> parseDbs(Element el) {
+    private Map<String, TableConfig> parseDbs(Element el, BaseConfig baseConfig) {
 
         // get
-        DbConfig dbConfig = getDbConfig(el);
+        DbConfig dbConfig = getDbConfig(el, baseConfig);
 
         Map<String, TableConfig> allTableConfigMap = new HashMap<String, TableConfig>();
 
@@ -134,7 +138,7 @@ public class ConfigParser {
      */
     private Map<String, TableConfig> parseDb(Element el, DbConfig parentDbConfig) {
 
-        DbConfig currentDbConfig = getDbConfig(el);
+        DbConfig currentDbConfig = getDbConfig(el, null);
 
         Map<String, TableConfig> tableMap = new HashMap<String, TableConfig>();
 
@@ -190,6 +194,9 @@ public class ConfigParser {
         } else {
             tableConfig.setPassword(parentDbConfig.getPassword());
         }
+
+        // driver class
+        tableConfig.setDriverClass(parentDbConfig.getDriverClass());
 
         tableConfig.genIdentify();
 

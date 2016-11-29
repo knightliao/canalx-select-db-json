@@ -14,8 +14,6 @@ public class DbConfiguration {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ConfigParser.class);
 
-    String jdbcDriver;
-
     Map<String, TableConfig> allTableInfo;
 
     public static void parse(URL xmlPath) throws Exception {
@@ -26,7 +24,6 @@ public class DbConfiguration {
 
         DbConfiguration genConfiguration = new ConfigParser().parse(inputStream);
 
-        LOGGER.debug(genConfiguration.getJdbcDriver());
         LOGGER.debug(genConfiguration.getAllTableInfo().toString());
     }
 
