@@ -2,6 +2,7 @@ package com.knightliao.canalx.db.test;
 
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -18,14 +19,21 @@ public class DbFetchControllerTest {
     @Test
     public void test() {
 
-        IDbFetchController dbFetchController = DbFetchControllerFactory.getDefaultDbController();
+        try {
 
-        Map<String, Map<String, String>> dbKvs = dbFetchController.getInitDbKv();
+            IDbFetchController dbFetchController = DbFetchControllerFactory.getDefaultDbController();
 
-        for (String tableId : dbKvs.keySet()) {
+            Map<String, Map<String, String>> dbKvs = dbFetchController.getInitDbKv();
 
-            System.out.println("table identify: " + tableId);
-            System.out.println("table kv:" + dbKvs.get(tableId));
+            for (String tableId : dbKvs.keySet()) {
+
+                System.out.println("table identify: " + tableId);
+                System.out.println("table kv:" + dbKvs.get(tableId));
+            }
+
+        } catch (Exception e) {
+
+            Assert.assertTrue(false);
         }
     }
 }

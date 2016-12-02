@@ -3,7 +3,7 @@ package com.knightliao.canalx.db.exception;
 /**
  *
  */
-public class CanalxSelectDbJsonException extends RuntimeException {
+public class CanalxSelectDbJsonException extends Exception {
     public CanalxSelectDbJsonException() {
     }
 
