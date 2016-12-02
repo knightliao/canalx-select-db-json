@@ -12,5 +12,5 @@ public interface IDbFetchController {
 
     // first key: table id
     // second key: the key of table
-    Map<String, Map<String, String>> getInitDbKv() throws CanalxSelectDbJsonInitException;
+    Map<String, Map<String, String>> getInitDbKv(String configFilePath) throws CanalxSelectDbJsonInitException;
 }

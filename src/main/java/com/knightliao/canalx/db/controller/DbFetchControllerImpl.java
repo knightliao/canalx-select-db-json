@@ -31,9 +31,14 @@ public class DbFetchControllerImpl implements IDbFetchController {
      *
      * @throws CanalxSelectDbJsonInitException
      */
-    public Map<String, Map<String, String>> getInitDbKv() throws CanalxSelectDbJsonInitException {
+    public Map<String, Map<String, String>> getInitDbKv(String configFilePath) throws CanalxSelectDbJsonInitException {
 
-        URL url = DbFetchControllerImpl.class.getClassLoader().getResource("canalx-db-kv.xml");
+        URL url = null;
+        if (configFilePath == null) {
+            url = DbFetchControllerImpl.class.getClassLoader().getResource("canalx-db-kv.xml");
+        } else {
+            url = DbFetchControllerImpl.class.getClassLoader().getResource(configFilePath);
+        }
 
         Map<String, TableConfig> tableConfigMap = null;
         try {
