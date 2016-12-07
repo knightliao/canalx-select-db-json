@@ -26,26 +26,14 @@ public class DbFetchControllerImpl implements IDbFetchController {
 
     private static final Logger logger = LoggerFactory.getLogger(DbFetchControllerImpl.class);
 
+    private Map<String, TableConfig> tableConfigMap = new HashMap<String, TableConfig>();
+
     /**
      * @return
      *
      * @throws CanalxSelectDbJsonInitException
      */
-    public Map<String, Map<String, String>> getInitDbKv(String configFilePath) throws CanalxSelectDbJsonInitException {
-
-        URL url = null;
-        if (configFilePath == null) {
-            url = DbFetchControllerImpl.class.getClassLoader().getResource("canalx-db-kv.xml");
-        } else {
-            url = DbFetchControllerImpl.class.getClassLoader().getResource(configFilePath);
-        }
-
-        Map<String, TableConfig> tableConfigMap = null;
-        try {
-            tableConfigMap = DbConfiguration.parse(url);
-        } catch (Exception e) {
-            throw new CanalxSelectDbJsonInitException(e);
-        }
+    public Map<String, Map<String, String>> getInitDbKv() throws CanalxSelectDbJsonInitException {
 
         Map<String, Map<String, String>> dbKv = new ConcurrentHashMap<String, Map<String, String>>(100);
         for (String tableId : tableConfigMap.keySet()) {
@@ -77,6 +65,43 @@ public class DbFetchControllerImpl implements IDbFetchController {
         }
 
         return dbKv;
+    }
+
+    /**
+     * @param configFilePath
+     *
+     * @throws CanalxSelectDbJsonInitException
+     */
+    public void init(String configFilePath) throws CanalxSelectDbJsonInitException {
+
+        URL url = null;
+        if (configFilePath == null) {
+            url = DbFetchControllerImpl.class.getClassLoader().getResource("canalx-db-kv.xml");
+        } else {
+            url = DbFetchControllerImpl.class.getClassLoader().getResource(configFilePath);
+        }
+
+        Map<String, TableConfig> tableConfigMap = new HashMap<String, TableConfig>();
+        try {
+            tableConfigMap = DbConfiguration.parse(url);
+        } catch (Exception e) {
+            throw new CanalxSelectDbJsonInitException(e);
+        }
+
+        this.tableConfigMap = tableConfigMap;
+    }
+
+    /**
+     * @param tableId
+     *
+     * @return
+     */
+    public String getTableKey(String tableId) {
+        if (tableConfigMap.keySet().contains(tableId)) {
+            return tableConfigMap.get(tableId).getKeyId();
+        } else {
+            return null;
+        }
     }
 
     /**

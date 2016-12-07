@@ -23,7 +23,8 @@ public class DbFetchControllerTest {
 
             IDbFetchController dbFetchController = DbFetchControllerFactory.getDefaultDbController();
 
-            Map<String, Map<String, String>> dbKvs = dbFetchController.getInitDbKv("canalx-db-kv.xml");
+            dbFetchController.init("canalx-db-kv.xml");
+            Map<String, Map<String, String>> dbKvs = dbFetchController.getInitDbKv();
 
             for (String tableId : dbKvs.keySet()) {
 
