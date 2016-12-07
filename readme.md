@@ -36,7 +36,8 @@ Fetch MYSQL's data to K-V style data.
     public void test() {
 
         IDbFetchController dbFetchController = DbFetchControllerFactory.getDefaultDbController();
-
+        
+        dbFetchController.init("canalx-db-kv.xml");
         Map<String, Map<String, String>> dbKvs = dbFetchController.getInitDbKv();
 
         for (String tableId : dbKvs.keySet()) {
