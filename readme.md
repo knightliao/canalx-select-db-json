@@ -54,8 +54,19 @@ Fetch MYSQL's data to K-V style data.
     table identify: test.user
     table kv:{1={"id":1,"name":"user1","phone":"123456789"}}
     
+### Maven
+
+    <dependency>
+        <groupId>com.knightliao.canalx</groupId>
+        <artifactId>canalx-select-db-json</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    
 ## 推荐
 
 - 有态度无广告的搜索引擎: https://www.sov5.com
-- 高质量的微信公众号阅读: http://www.100weidu.com
+- 微读 - 高品质阅读: http://www.100weidu.com
 - Python中国社区: http://www.python88.com
+- Disconf - 分布式配置管理平台: http://github.com/knightliao/disconf
+- CanalX - 基于 `Canal` 的数据感知服务框架: http://github.com/knightliao/canalX
+
