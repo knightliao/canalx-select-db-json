@@ -57,7 +57,7 @@ Fetch MYSQL's data to K-V style data.
 ### Maven
 
     <dependency>
-        <groupId>com.knightliao.canalx</groupId>
+        <groupId>com.github.knightliao.canalx</groupId>
         <artifactId>canalx-select-db-json</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </dependency>
