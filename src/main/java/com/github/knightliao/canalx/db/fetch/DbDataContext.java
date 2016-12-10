@@ -2,6 +2,7 @@ package com.github.knightliao.canalx.db.fetch;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author knightliao
@@ -9,6 +10,7 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class DbDataContext {
 
     private String driverClass;
