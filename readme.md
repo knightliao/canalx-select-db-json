@@ -64,7 +64,7 @@ Fetch MYSQL's data to K-V style data.
     <dependency>
         <groupId>com.github.knightliao.canalx</groupId>
         <artifactId>canalx-select-db-json</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1</version>
     </dependency>
     
 ## 推荐

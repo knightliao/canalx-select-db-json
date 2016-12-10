@@ -5,7 +5,7 @@
     <groupId>com.github.knightliao.canalx</groupId>
     <artifactId>canalx-select-db-json</artifactId>
     <name>canalx-select-db-json</name>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -73,7 +73,7 @@
             <groupId>com.github.knightliao.test</groupId>
             <artifactId>jutf</artifactId>
             <scope>test</scope>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>1.0.2</version>
         </dependency>
 
         <!-- tools -->
