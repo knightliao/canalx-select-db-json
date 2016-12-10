@@ -1,4 +1,5 @@
 canalx-select-db-json [![Build Status](https://travis-ci.org/knightliao/canalx-select-db-json.svg?branch=master)](https://travis-ci.org/knightliao/canalx-select-db-json) [![Coverage Status](https://coveralls.io/repos/github/knightliao/canalx-select-db-json/badge.svg?branch=master)](https://coveralls.io/github/knightliao/canalx-select-db-json?branch=master)
+<a href='https://coveralls.io/github/knightliao/canalx-select-db-json?branch=master'><img src='https://coveralls.io/repos/github/knightliao/canalx-select-db-json/badge.svg?branch=master' alt='Coverage Status' /></a>
 =======
 
 Fetch MYSQL's data to K-V style data.
