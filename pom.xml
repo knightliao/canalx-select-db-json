@@ -60,11 +60,20 @@
             <version>5.1.6</version>
         </dependency>
 
+        <!-- test -->
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
             <version>4.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.knightliao.test</groupId>
+            <artifactId>jutf</artifactId>
+            <scope>test</scope>
+            <version>1.0.2-SNAPSHOT</version>
         </dependency>
 
         <!-- tools -->
@@ -174,6 +183,7 @@
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                     <includes>
                         <include>**/*TestCase.java</include>
+                        <include>**/*Test.java</include>
                     </includes>
                 </configuration>
             </plugin>
