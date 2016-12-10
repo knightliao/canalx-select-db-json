@@ -1,5 +1,7 @@
 package com.github.knightliao.canalx.db.fetch;
 
+import javax.sql.DataSource;
+
 import com.github.knightliao.canalx.db.fetch.impl.DbFetcherImpl;
 
 /**
@@ -15,6 +17,16 @@ public class DbFetcherFactory {
 
         DbDataContext dbDataContext = new DbDataContext(driverClass, dbUrl, userName, userPassword);
         ((DbFetcherImpl) dbFetcher).setDbDataContext(dbDataContext);
+
+        return dbFetcher;
+    }
+
+    public static DbFetcher getDefaultDbFetcher(DataSource dataSource)
+            throws ClassNotFoundException {
+
+        DbFetcher dbFetcher = new DbFetcherImpl();
+
+        ((DbFetcherImpl) dbFetcher).setDataSource(dataSource);
 
         return dbFetcher;
     }

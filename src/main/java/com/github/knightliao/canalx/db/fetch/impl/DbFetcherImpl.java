@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.slf4j.Logger;
@@ -59,5 +61,12 @@ public class DbFetcherImpl implements DbFetcher, DbDataContextAware {
         dbWrapper = new DbWrapper();
         dbWrapper.setup(dbDataContext.getDriverClass(), dbDataContext.getDbUrl(), dbDataContext.getUserName(),
                 dbDataContext.getUserPassword());
+    }
+
+    @Override
+    public void setDataSource(DataSource dataSource) {
+
+        dbWrapper = new DbWrapper();
+        dbWrapper.setup(dataSource);
     }
 }

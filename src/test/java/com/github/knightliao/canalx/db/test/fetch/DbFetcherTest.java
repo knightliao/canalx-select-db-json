@@ -4,37 +4,36 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.knightliao.canalx.db.fetch.DbFetcher;
 import com.github.knightliao.canalx.db.fetch.DbFetcherFactory;
+import com.github.knightliao.test.h2.H2BaseTestCase;
 
 /**
  * @author knightliao
  * @date 2016/11/28 11:18
  */
-public class DbFetcherTest {
+public class DbFetcherTest extends H2BaseTestCase {
 
-    @Ignore
     @Test
     public void test() {
 
-        String driverClass = "com.mysql.jdbc.Driver";
-        String dbUrl = "jdbc:mysql://localhost:3306?"
-                + "useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries"
-                + "=true";
-        String userName = "root";
-        String password = "123456";
-
         try {
 
-            DbFetcher dbFetcher = DbFetcherFactory.getDefaultDbFetcher(driverClass, dbUrl, userName, password);
+            DbFetcher dbFetcher = DbFetcherFactory.getDefaultDbFetcher(this.getDataSource());
 
-            List<Map<String, Object>> results = dbFetcher.executeSql("select * from 100weidu.user");
+            List<Map<String, Object>> results = dbFetcher.executeSql("select * from test.user");
             for (Map<String, Object> map : results) {
                 System.out.println(map.toString());
             }
+            Assert.assertEquals(results.size(), 2);
+
+            results = dbFetcher.executeSql("select * from test2.store");
+            for (Map<String, Object> map : results) {
+                System.out.println(map.toString());
+            }
+            Assert.assertEquals(results.size(), 5);
 
         } catch (Exception e) {
 

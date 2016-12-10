@@ -34,6 +34,10 @@ public class DbWrapper {
         dataSource = setupDataSource(driverUrl, connectURI, userName, password);
     }
 
+    public void setup(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     public Connection getConnection() throws SQLException {
 
         // dataSource.getConnection().

@@ -121,7 +121,7 @@ public class DbFetchControllerImpl implements IDbFetchController {
             for (String column : rowMap.keySet()) {
 
                 // key
-                if (tableConfig.getKeyId().equals(column)) {
+                if (tableConfig.getKeyId().equalsIgnoreCase(column)) {
                     tableKv.put(rowMap.get(column).toString(), new Gson().toJson(rowMap));
                     foundKey = true;
                     break;
