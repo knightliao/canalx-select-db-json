@@ -1,5 +1,10 @@
-canalx-select-db-json [![Build Status](https://travis-ci.org/knightliao/canalx-select-db-json.svg?branch=master)](https://travis-ci.org/knightliao/canalx-select-db-json) [![Coverage Status](https://coveralls.io/repos/github/knightliao/canalx-select-db-json/badge.svg?branch=master)](https://coveralls.io/github/knightliao/canalx-select-db-json?branch=master)
+canalx-select-db-json 
 =======
+
+[![Apache License 2](https://img.shields.io/badge/license-ASF2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.txt)
+[![Build Status](https://travis-ci.org/knightliao/canalx-select-db-json.svg?branch=master)](https://travis-ci.org/knightliao/canalx-select-db-json) 
+[![Coverage Status](https://coveralls.io/repos/github/knightliao/canalx-select-db-json/badge.svg?branch=master)](https://coveralls.io/github/knightliao/canalx-select-db-json?branch=master)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.knightliao.canalx/canalx-select-db-json/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/com.github.knightliao.canalx/canalx-select-db-json)
 
 Fetch MYSQL's data to K-V style data.
 
