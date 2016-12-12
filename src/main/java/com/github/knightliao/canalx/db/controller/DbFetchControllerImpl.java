@@ -81,7 +81,11 @@ public class DbFetchControllerImpl implements IDbFetchController {
             url = DbFetchControllerImpl.class.getClassLoader().getResource(configFilePath);
         }
 
-        Map<String, TableConfig> tableConfigMap = new HashMap<String, TableConfig>();
+        if (url == null) {
+            throw new CanalxSelectDbJsonInitException("cannot load config: " + configFilePath);
+        }
+
+        Map<String, TableConfig> tableConfigMap;
         try {
             tableConfigMap = DbConfiguration.parse(url);
         } catch (Exception e) {
