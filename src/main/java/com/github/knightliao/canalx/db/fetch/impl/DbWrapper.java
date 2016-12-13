@@ -45,6 +45,7 @@ public class DbWrapper {
     }
 
     public void cleanUp(Connection conn, Statement stmt, ResultSet rs) {
+
         try {
             if (rs != null) {
                 rs.close();

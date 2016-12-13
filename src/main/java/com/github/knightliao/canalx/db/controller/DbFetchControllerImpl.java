@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import com.github.knightliao.canalx.db.IDbFetchController;
 import com.github.knightliao.canalx.db.config.DbConfiguration;
 import com.github.knightliao.canalx.db.config.TableConfig;
+import com.github.knightliao.canalx.db.controller.sql.ISqlGenMgr;
+import com.github.knightliao.canalx.db.controller.sql.impl.SqlGenMgr;
 import com.github.knightliao.canalx.db.exception.CanalxSelectDbJsonInitException;
 import com.github.knightliao.canalx.db.fetch.DbFetcher;
 import com.github.knightliao.canalx.db.fetch.DbFetcherFactory;
@@ -24,16 +26,22 @@ import com.google.gson.Gson;
  */
 public class DbFetchControllerImpl implements IDbFetchController {
 
-    private static final Logger logger = LoggerFactory.getLogger(DbFetchControllerImpl.class);
+    protected static final Logger logger = LoggerFactory.getLogger(DbFetchControllerImpl.class);
 
-    private Map<String, TableConfig> tableConfigMap = new HashMap<String, TableConfig>();
+    protected Map<String, TableConfig> tableConfigMap = new HashMap<String, TableConfig>();
+
+    // db fetcher
+    protected Map<String, DbFetcher> dbFetcherMap = new HashMap<>();
+
+    // file name
+    protected static String FILE_NAME = "canalx-db-kv.xml";
 
     /**
      * @return
      *
      * @throws CanalxSelectDbJsonInitException
      */
-    public Map<String, Map<String, String>> getInitDbKv() throws CanalxSelectDbJsonInitException {
+    public Map<String, Map<String, String>> getInitDbKv() {
 
         Map<String, Map<String, String>> dbKv = new ConcurrentHashMap<String, Map<String, String>>(100);
         for (String tableId : tableConfigMap.keySet()) {
@@ -42,8 +50,7 @@ public class DbFetchControllerImpl implements IDbFetchController {
 
             try {
 
-                DbFetcher dbFetcher = DbFetcherFactory.getDefaultDbFetcher(tableConfig.getDriverClass(), tableConfig
-                        .getDbUrl(), tableConfig.getUserName(), tableConfig.getPassword());
+                DbFetcher dbFetcher = dbFetcherMap.get(tableId);
 
                 if (!tableConfig.getInitSql().isEmpty()) {
 
@@ -58,9 +65,6 @@ public class DbFetchControllerImpl implements IDbFetchController {
 
                     logger.info("load sql:{} ok.", tableConfig.getInitSql());
                 }
-
-            } catch (ClassNotFoundException e) {
-                logger.error(e.toString());
             } catch (SQLException e) {
                 logger.error(e.toString());
             }
@@ -76,9 +80,9 @@ public class DbFetchControllerImpl implements IDbFetchController {
      */
     public void init(String configFilePath) throws CanalxSelectDbJsonInitException {
 
-        URL url = null;
+        URL url;
         if (configFilePath == null) {
-            url = DbFetchControllerImpl.class.getClassLoader().getResource("canalx-db-kv.xml");
+            url = DbFetchControllerImpl.class.getClassLoader().getResource(FILE_NAME);
         } else {
             url = DbFetchControllerImpl.class.getClassLoader().getResource(configFilePath);
         }
@@ -87,6 +91,9 @@ public class DbFetchControllerImpl implements IDbFetchController {
             throw new CanalxSelectDbJsonInitException("cannot load config: " + configFilePath);
         }
 
+        /**
+         *  table config
+         */
         Map<String, TableConfig> tableConfigMap;
         try {
             tableConfigMap = DbConfiguration.parse(url);
@@ -95,6 +102,25 @@ public class DbFetchControllerImpl implements IDbFetchController {
         }
 
         this.tableConfigMap = tableConfigMap;
+
+        /**
+         * int db fetcher
+         */
+
+        for (String tableId : tableConfigMap.keySet()) {
+
+            TableConfig tableConfig = tableConfigMap.get(tableId);
+
+            try {
+
+                DbFetcher dbFetcher = DbFetcherFactory.getDefaultDbFetcher(tableConfig.getDriverClass(), tableConfig
+                        .getDbUrl(), tableConfig.getUserName(), tableConfig.getPassword());
+                dbFetcherMap.put(tableId, dbFetcher);
+
+            } catch (ClassNotFoundException e) {
+                logger.error(e.toString());
+            }
+        }
     }
 
     /**
@@ -108,6 +134,45 @@ public class DbFetchControllerImpl implements IDbFetchController {
         } else {
             return null;
         }
+    }
+
+    /**
+     * get row by execute sql
+     *
+     * @param tableId
+     *
+     * @return
+     */
+    @Override
+    public Map<String, String> getRowByExecuteSql(String tableId, String keyValue) {
+
+        DbFetcher dbFetcher = dbFetcherMap.get(tableId);
+
+        String tableKey = getTableKey(tableId);
+        TableConfig tableConfig = tableConfigMap.get(tableId);
+
+        if (dbFetcher != null && tableKey != null && tableConfig != null) {
+
+            ISqlGenMgr sqlGenMgr = new SqlGenMgr();
+            String sql = sqlGenMgr.genSql(tableId, tableKey, keyValue);
+
+            // original data
+            List<Map<String, Object>> dataJson = null;
+            try {
+
+                dataJson = dbFetcher.executeSql(sql);
+
+                // to kv
+                return this.table2KV(dataJson, tableConfig);
+
+            } catch (SQLException e) {
+
+                logger.error(e.toString(), e);
+            }
+
+        }
+
+        return new HashMap<>();
     }
 
     /**
