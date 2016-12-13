@@ -55,6 +55,8 @@ public class DbFetchControllerImpl implements IDbFetchController {
 
                     //
                     dbKv.put(tableConfig.getIdentify(), dataKv);
+
+                    logger.info("load sql:{} ok.", tableConfig.getInitSql());
                 }
 
             } catch (ClassNotFoundException e) {
