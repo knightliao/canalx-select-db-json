@@ -21,5 +21,5 @@ public interface IDbFetchController {
     String getTableKey(String tableId);
 
     //
-    Map<String, String> getRowByExecuteSql(String tableId, String keyValue);
+    String getRowByExecuteSql(String tableId, String keyValue);
 }

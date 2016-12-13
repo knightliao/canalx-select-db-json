@@ -29,6 +29,8 @@ public class DbFetcherImpl implements DbFetcher, DbDataContextAware {
 
     public List<Map<String, Object>> executeSql(String sql) {
 
+        logger.debug(sql);
+
         Connection conn = null;
 
         List<Map<String, Object>> listOfMaps = null;
@@ -38,6 +40,8 @@ public class DbFetcherImpl implements DbFetcher, DbDataContextAware {
 
             QueryRunner queryRunner = new QueryRunner();
             listOfMaps = queryRunner.query(conn, sql, new MapListHandler());
+
+            logger.debug(listOfMaps.toString());
 
             return listOfMaps;
 

@@ -64,8 +64,8 @@ public class DbFetchControllerTest extends H2BaseTestCase {
                 System.out.println("table kv:" + dbKvs.get(tableId));
                 System.out.println("table key: " + dbFetchController.getTableKey(tableId));
 
-                Map<String, String> map = dbFetchController.getRowByExecuteSql(tableId, String.valueOf(1L));
-                System.out.println("execute sql value: " + map.toString());
+                String value = dbFetchController.getRowByExecuteSql(tableId, String.valueOf(1L));
+                System.out.println("execute sql value: " + value);
             }
 
         } catch (Exception e) {

@@ -137,14 +137,14 @@ public class DbFetchControllerImpl implements IDbFetchController {
     }
 
     /**
-     * get row by execute sql
+     * get row by execute sql, 只返回一条
      *
      * @param tableId
      *
      * @return
      */
     @Override
-    public Map<String, String> getRowByExecuteSql(String tableId, String keyValue) {
+    public String getRowByExecuteSql(String tableId, String keyValue) {
 
         DbFetcher dbFetcher = dbFetcherMap.get(tableId);
 
@@ -163,7 +163,12 @@ public class DbFetchControllerImpl implements IDbFetchController {
                 dataJson = dbFetcher.executeSql(sql);
 
                 // to kv
-                return this.table2KV(dataJson, tableConfig);
+                Map<String, String> map = this.table2KV(dataJson, tableConfig);
+
+                if (map.keySet().size() == 0) {
+                    return null;
+                }
+                return map.get(keyValue);
 
             } catch (SQLException e) {
 
@@ -172,7 +177,7 @@ public class DbFetchControllerImpl implements IDbFetchController {
 
         }
 
-        return new HashMap<>();
+        return null;
     }
 
     /**
