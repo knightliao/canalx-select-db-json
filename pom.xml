@@ -215,7 +215,6 @@
                     <tags>
                         <tag>
                             <name>date</name>
-                            <!-- todo tag for all places -->
                             <placement>a</placement>
                             <head>date</head>
                         </tag>
@@ -305,7 +304,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.10.4</version>
+                        <version>2.9</version>
                         <executions>
                             <execution>
                                 <phase>package</phase>
