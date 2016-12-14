@@ -1,6 +1,6 @@
 package com.github.knightliao.canalx.db.controller;
 
-import java.net.URL;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -80,14 +80,14 @@ public class DbFetchControllerImpl implements IDbFetchController {
      */
     public void init(String configFilePath) throws CanalxSelectDbJsonInitException {
 
-        URL url;
+        InputStream inputStream;
         if (configFilePath == null) {
-            url = DbFetchControllerImpl.class.getClassLoader().getResource(FILE_NAME);
+            inputStream = DbFetchControllerImpl.class.getClassLoader().getResourceAsStream(FILE_NAME);
         } else {
-            url = DbFetchControllerImpl.class.getClassLoader().getResource(configFilePath);
+            inputStream = DbFetchControllerImpl.class.getClassLoader().getResourceAsStream(configFilePath);
         }
 
-        if (url == null) {
+        if (inputStream == null) {
             throw new CanalxSelectDbJsonInitException("cannot load config: " + configFilePath);
         }
 
@@ -96,7 +96,7 @@ public class DbFetchControllerImpl implements IDbFetchController {
          */
         Map<String, TableConfig> tableConfigMap;
         try {
-            tableConfigMap = DbConfiguration.parse(url);
+            tableConfigMap = DbConfiguration.parse(inputStream);
         } catch (Exception e) {
             throw new CanalxSelectDbJsonInitException(e);
         }
