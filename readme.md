@@ -6,9 +6,11 @@ canalx-select-db-json
 [![Coverage Status](https://coveralls.io/repos/github/knightliao/canalx-select-db-json/badge.svg?branch=master)](https://coveralls.io/github/knightliao/canalx-select-db-json?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.knightliao.canalx/canalx-select-db-json/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/com.github.knightliao.canalx/canalx-select-db-json)
 
-Fetch MYSQL's data to K-V style data.
+Fetch MYSQL's data to K-V style data. 
 
 ## quick start 
+
+note: json encoding is using GSON.
 
 ### config 
 
