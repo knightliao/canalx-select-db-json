@@ -10,7 +10,7 @@ Fetch MYSQL's data to K-V style data.
 
 ## quick start 
 
-note: json encoding is using GSON.
+note: json encoding is using Jackson.
 
 ### config 
 

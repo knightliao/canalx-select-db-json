@@ -10,7 +10,8 @@ import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author knightliao
@@ -41,7 +42,15 @@ public class JDBCExample {
         } finally {
             DbUtils.closeQuietly(connection);
         }
-        return new Gson().toJson(listOfMaps);
+
+        try {
+            return new ObjectMapper().writeValueAsString(listOfMaps);
+
+        } catch (JsonProcessingException e) {
+            System.out.println(e.toString());
+        }
+
+        return null;
     }
 
     public static void main(String[] args) {

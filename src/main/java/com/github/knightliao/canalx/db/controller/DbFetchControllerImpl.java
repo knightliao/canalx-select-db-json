@@ -10,6 +10,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.knightliao.canalx.db.IDbFetchController;
 import com.github.knightliao.canalx.db.config.DbConfiguration;
 import com.github.knightliao.canalx.db.config.TableConfig;
@@ -18,7 +20,6 @@ import com.github.knightliao.canalx.db.controller.sql.impl.SqlGenMgr;
 import com.github.knightliao.canalx.db.exception.CanalxSelectDbJsonInitException;
 import com.github.knightliao.canalx.db.fetch.DbFetcher;
 import com.github.knightliao.canalx.db.fetch.DbFetcherFactory;
-import com.google.gson.Gson;
 
 /**
  * @author knightliao
@@ -198,8 +199,18 @@ public class DbFetchControllerImpl implements IDbFetchController {
 
                 // key
                 if (tableConfig.getKeyId().equalsIgnoreCase(column)) {
-                    tableKv.put(rowMap.get(column).toString(), new Gson().toJson(rowMap));
-                    foundKey = true;
+
+                    String value;
+                    try {
+                        value = new ObjectMapper().writeValueAsString(rowMap);
+                        tableKv.put(rowMap.get(column).toString(), value);
+                        foundKey = true;
+
+                    } catch (JsonProcessingException e) {
+                        logger.error("cannot parse, key:{} for table:{}'s column:{}", tableConfig.getKeyId(),
+                                tableConfig.getIdentify(), rowMap.toString(), e);
+                    }
+
                     break;
                 }
             }
