@@ -66,7 +66,7 @@ note: json encoding is using Jackson.
     <dependency>
         <groupId>com.github.knightliao.canalx</groupId>
         <artifactId>canalx-select-db-json</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2-SNAPSHOT</version>
     </dependency>
     
 ## 推荐
