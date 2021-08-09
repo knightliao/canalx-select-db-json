@@ -18,7 +18,7 @@
         <java.version>1.7</java.version>
         <source.version>1.7</source.version>
         <target.version>1.7</target.version>
-        <jackson.version>2.7.0</jackson.version>
+        <jackson.version>2.9.10.7</jackson.version>
     </properties>
 
     <dependencies>
@@ -34,7 +34,7 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <scope>compile</scope>
-            <version>1.1.2</version>
+            <version>1.2.0</version>
         </dependency>
 
         <dependency>
@@ -58,7 +58,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.6</version>
+            <version>8.0.16</version>
         </dependency>
 
         <!-- test -->
@@ -67,7 +67,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
-            <version>4.12</version>
+            <version>4.13.1</version>
         </dependency>
 
         <dependency>
@@ -212,9 +212,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <additionalparam>${javadoc.opts}</additionalparam>
-                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
