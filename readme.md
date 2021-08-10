@@ -8,6 +8,8 @@ canalx-select-db-json
 
 Fetch MYSQL's data to K-V style data. 
 
+通过配置化的SQL语句将 Mysql 中的数据读取到内存中，形成 KV 格式。
+
 ## quick start 
 
 note: json encoding is using Jackson.
